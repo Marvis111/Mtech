@@ -1,0 +1,274 @@
+$(document).ready(function(){
+    
+const userIdd = $('#userId').val();
+
+var peer = new Peer(userIdd,{
+    host:'/',
+    port:'3001'
+}); 
+
+peer.on('open', function(id) {
+    console.log('My peer ID is: ' + id);
+  });
+    /*
+    socket.on('sendmystream',streamData=>{
+        add_User_Stream(streamData.stream, streamData.username);
+    }); */
+})
+
+
+$(document).on('click','.video_call',function(){
+    //initializing
+//username..
+startVideoCall();
+})
+
+function startVideoCall(){
+    const username = $('#userName').val();
+    let groupId = $('#groupId').val();
+  const videoContainer = document.createElement('div');
+  videoContainer.classList.add('videoContainer');
+  //
+  const vid_user = document.createElement('div');
+  vid_user.classList.add('vid_user');
+  //
+  const span = document.createElement('span')
+  span.classList.add('text-info');
+  span.append(username);
+  //
+  const userVid = document.createElement('div');
+ userVid.classList.add('userVid');
+//
+vid_user.append(span);
+videoContainer.append(vid_user);
+videoContainer.append(userVid);
+
+const vidGrid = $('#myvideo');
+const video = document.createElement('video');
+video.autoplay = true;
+///open the vc..
+navigator.mediaDevices.getUserMedia({
+        audio:false,
+        video:true
+    }).then(stream =>{ 
+        video.srcObject = stream;
+        let vidStream = video.srcObject;
+//  
+        socket.emit('sendmystream',[stream]);
+        //
+        video.addEventListener('loadedmetadata',function(){
+            userVid.append(video);  
+        
+        });
+
+        socket.on('sendmystream',streamData=>{
+            streamData.stream = stream;
+         //   add_User_Stream(streamData.stream, streamData.username);
+        });
+    });
+
+    vidGrid.append(videoContainer);
+}
+
+//
+function add_User_Stream(stream,username){
+    const videoContainer = document.createElement('div');
+    videoContainer.classList.add('videoContainer');
+    //
+    const vid_user = document.createElement('div');
+    vid_user.classList.add('vid_user');
+    //
+    const span = document.createElement('span')
+    span.classList.add('text-info');
+    span.append(username);
+    //
+    const userVid = document.createElement('div');
+   userVid.classList.add('userVid');
+  //
+  vid_user.append(span);
+  videoContainer.append(vid_user);
+  videoContainer.append(userVid);
+  
+  const vidGrid = $('#myvideo');
+  const video = document.createElement('video');
+  video.autoplay = true;
+
+video.srcObject = stream;
+video.addEventListener('loadedmetadata',function(){
+    userVid.append(video);
+});
+vidGrid.append(videoContainer);
+}
+//
+function closeVC(){
+    $('#myvideo').empty();
+    $("#myvideo").html("");
+}
+
+
+
+///
+
+
+
+$(document).ready(function(){
+    
+  
+      
+    })
+    
+    
+    $(document).on('click','.video_call',function(){
+        let groupId = $('#groupId').val();
+        const username = $('#userName').val();
+        const userId = $('#userId').val();
+        // THE STARTER..
+        var peer = new Peer(userId,{
+            host:'/',
+            port:'3001'
+        }); 
+
+        startVideoCall(username,groupId,peer);
+
+
+    })
+
+    function startVideoCall(username,groupId,peer){
+      const videoContainer = document.createElement('div');
+      videoContainer.classList.add('videoContainer');
+      //
+      const vid_user = document.createElement('div');
+      vid_user.classList.add('vid_user');
+      //
+      const span = document.createElement('span')
+      span.classList.add('text-info');
+      span.append(username);
+      //
+      const userVid = document.createElement('div');
+     userVid.classList.add('userVid');
+    //
+    vid_user.append(span);
+    videoContainer.append(vid_user);
+    videoContainer.append(userVid);
+    
+    const vidGrid = $('#myvideo');
+    const video = document.createElement('video');
+    video.autoplay = true;
+    //
+    peer.on('open', function(userId) {
+socket.emit('join_vc',{groupId,userId,username});
+
+    navigator.mediaDevices.getUserMedia({
+        audio:false,
+        video:true
+    }).then(stream =>{
+
+        add_Video_Stream(video,stream,userVid);
+        // when a user calls you.....
+        peer.on('call',call =>{
+         //   call.answer(stream);
+            const videoContainer = document.createElement('div');
+            videoContainer.classList.add('videoContainer');
+            //
+            const vid_user = document.createElement('div');
+            vid_user.classList.add('vid_user');
+            //
+            const span = document.createElement('span')
+            span.classList.add('text-info');
+            span.append(username);
+            //
+            const userVid = document.createElement('div');
+           userVid.classList.add('userVid');
+          //
+          vid_user.append(span);
+          videoContainer.append(vid_user);
+          videoContainer.append(userVid);
+          
+          const vidGrid = $('#myvideo');
+          const video = document.createElement('video');
+          video.autoplay = true;
+          //
+
+            call.on('stream', user_vid =>{
+                add_Video_Stream(video,user_vid,userVid);
+                vidGrid.append(videoContainer);
+            });
+        })
+
+        socket.on('join_vc', data=>{
+        connect_new_user(peer,data.userId,data.username,stream);
+        });
+
+    });
+   
+    vidGrid.append(videoContainer);
+
+
+      });
+    }
+
+    //
+function  connect_new_user(peer,userId,username,stream){
+    const videoContainer = document.createElement('div');
+      videoContainer.classList.add('videoContainer');
+      //
+      const vid_user = document.createElement('div');
+      vid_user.classList.add('vid_user');
+      //
+      const span = document.createElement('span')
+      span.classList.add('text-info');
+      span.append(username);
+      //
+      const userVid = document.createElement('div');
+     userVid.classList.add('userVid');
+    //
+    vid_user.append(span);
+    videoContainer.append(vid_user);
+    videoContainer.append(userVid);
+    
+    const vidGrid = $('#myvideo');
+    const video = document.createElement('video');
+    video.autoplay = true;
+
+    //
+const call = peer.call(userId,stream);
+call.on('stream', userVidStream =>{
+    
+    add_Video_Stream(video,userVidStream,userVid);
+
+});
+vidGrid.append(videoContainer);
+
+}
+
+
+    //
+    function add_Video_Stream(video,stream,userVid){
+        video.srcObject = stream;
+        video.addEventListener('loadedmetadata',()=>{
+            video.play();
+        });
+        userVid.append(video);
+    };
+
+    //for(i = 0; i < allowedfileExt.length; i++){
+        //check file extension..
+        if(userImgExt.toLowerCase() == allowedfileExt[i].toLowerCase()){
+           //check FILE SIZE.
+           console.log(userImgExt);
+            if (req.files.profileImg.size <= 1000000 ) {
+                let newImageName = Math.random()+"."+userImgExt;
+                console.log(newImageName);
+                
+            } else {
+                res.locals.redirect = "/profileimg";
+                req.flash('errors',[{msg:"Profile Image is too large."}]);
+                next();   
+            }
+
+        }else{
+            res.locals.redirect = "/profileimg";
+            req.flash('errors',[{msg:"Invalid Image extension."}]);
+            next();
+        }
+    }

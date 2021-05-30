@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Confetti Recipe|| App</title>
+ <!-- JQUERY... -->
+ <meta http-equiv="refrsh" content="3">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Keywords" content=" ">
+  <meta name="description" content="">
+<script type="text/javascript" src="../jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="../jquery/jquery.js"></script>
+  <script type="text/javascript" src="../jquery/jquery-ui.js">
+  </script>
+  <script type="text/javascript" src="../jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../jquery/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css">
+  
+  <!-- BOOSTSRAP scripts... -->
+<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../fonts/icomoon/style.css">
+   <!-- CSS scripts... -->
+   <link rel="stylesheet" type="text/css" href="../css/styles.css">
+ <link rel="stylesheet" type="text/css" href="../css/login.css">
+
+ <!--JS scripts... -->
+  <!-- REACT scripts... 
+  <script type="text/javascript" src="react-0.14.3/build/react.js"></script>
+  <script type="text/javascript" src="react-0.14.3/build/react.min.js"></script>
+  <script type="text/javascript" src="react-0.14.3/build/react-dom.js"></script>
+  <script type="text/javascript" src="react-0.14.3/build/browser.min.js"></script>
+  <script type="text/javascript" src="react-0.14.3/build/babel.min.js"></script>
+-->
+</head>	
+<body>
+<nav class="navbar navbar-expand-md navbar-dark">
+
+<a class="navbar-brand" href="/">
+    <span>MTech</span>
+  </a>
+
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+    <ul class="navbar-nav ">
+      
+        <li class="nav-item">
+            <a class="nav-link" href="/registrations/login"><i class="icon-person"> Login</i></a>
+          </li> 
+           <li class="nav-item">
+            <a class="nav-link" href="/registrations/signup"><i class="icon-group"> Signup</i></a>
+          </li> 
+    </ul>
+  </div> 
+</nav>
+<section class="section-hero">
+  <div class="registrations">
+    <div class="reg-desc">
+      <img src="../images/marviskid.jpg">
+      <div class="desc">
+        <h1 class="text-primary JoinUs">Join our team now!</h1>
+        <p class="text-muted ">
+          We at the Spark foundation at ready to bear all your pain in building a responsive and user friendly websites. Visit us now!
+        </p>
+      </div>
+    </div>
+
+    <div class="reg-fillable">
+      <div class="this-head">
+        <span class="text-primary" style="font-size: 30px;margin-left: 30px;font-weight: bold;font-family:'sans','poppins' ">Sign Up</span>
+      </div>
+      <form class="login-form" action="/registrations/signup" method="POST">
+        <% if(flashMessages.errors){ %>
+            <div class="alert alert-danger alert-dismissible" style="width: 90% !important; margin: 0 auto !important;">
+          <% flashMessages.errors.forEach((error)=>{ %>
+            <strong><%=  error.msg%>!</strong><br>
+          <% }) %>
+        </div>
+        <% } %>
+         
+        
+        <div class="form-input">
+          <label for="name">Username</label>
+          <input type="text" name="username" placeholder="Username"><br>
+  
+        </div>
+        <div class="form-input">
+          <label for="name">Email Address</label>
+          <input type="text" name="email" placeholder="Email Address"><br>
+
+        </div>
+
+        <div class="form-input">
+          <label for="name">Password</label>
+          <input type="password" name="password" placeholder="Password"><br>
+        </div>
+        <div class="form-input">
+          <input type="submit" class="submitBtn" name="" value="Login" onclick="submitBtn(e)">
+        </div>
+        <div class="signUpNav">
+          <p class="text-muted">Already a user? <a href="login" class="text-primary " >Login</a></p>
+        </div>
+
+
+      </form>
+    </div>
+
+  </div>
+</section>
+	
+</body>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+
+  (function(windowWith){
+    if (windowWith < 756 ) {
+      $('.reg-fillable').css({
+        "height":"500px",
+        "margin":"0 auto !important"
+      });
+    }
+
+  })($(window).width());
+  
+  
+</script>
+
+</html>

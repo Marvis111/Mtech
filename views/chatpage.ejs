@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="reesh" content="3">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Keywords" content=" ">
+	<meta name="description" content="">
+	<!-- js links -->
+	<script type="text/javascript" src="../jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery/jquery.js"></script>
+  <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/video_call.js"></script>
+  <script src="../js/peerjs.min.js"></script>
+	<!--css links -->
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+	<link rel="stylesheet" type="text/css" href="../css/w3.css">
+	<!-- bootstrap -->	<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/icomoon/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/chat.css">
+
+
+	<title>MTECH NG</title>
+</head>
+<body>
+<section class="pageSection">
+  <!--  side nav-->
+  <div class="side-nav " >
+    <div class="site-name">
+      <div class="site">
+        <span>MTech</span>
+      </div>
+      <div>
+        <div class="head-tabs">
+          <ul>
+            <li><i class="icon-plus-circle"></i></li>
+            
+            <li><i class="icon-more_vert"></i></li>
+            <li><i class="icon-times close-side-nav"></i></li>
+
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class="searchbar">
+      <div class="search-form">
+        <form>
+          <b><i class="search-icon icon-search"></i> </b>
+          <input type="search" name="user-search" placeholder="Search here">
+        </form>
+      </div>
+     
+
+    </div>
+    
+  </div>
+ <!--  center nav-->
+  <div class="center-nav">
+    <div class="chat-group">
+      <div class="group">
+
+        <div class="open-side-nav">
+          <i class="icon-bars"></i>
+        </div>
+        <div class="group-name">
+
+          <span class="text-info"><li class="user-status"><i class=""></i></li><%= groupName %></span>
+        </div>
+        <div class="call-vid">
+           <ul>
+            <li><i class="icon-phone2"></i></li>
+            <li class="video_call" data-toggle="modal" data-target="#myModal"><i class="icon-videocam video_call"></i></li>
+        <li  class="show-profile"><i class="icon-person"  title="My Profile"></i></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="chat-arena">
+    
+      <div class="chat-messages">
+
+      </div>
+      <div class="send-message">
+        <input type="text" class="mesg-area" id="userMsg" placeholder="Type Your Message Here">
+        <div class="send">
+          <li><i class="icon-send-o"></i></li>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!--  profile nav-->
+  <div class="my-info">
+    <div class="close-my-info" >
+      <i class="icon-times"></i>
+    </div>
+    
+  </div>
+
+  <!-- video call The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Video Calling</h4>
+          <button type="button" onclick="" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" id="myvideo" style="text-align: center !important;justify-content: center !important;">
+          
+        </div>
+        
+        <!-- Modal footer -->
+      </div>
+    </div>
+  </div>
+  
+<!-- user details.-->
+
+<input type="hidden" id="userName" value="<%= userName %>">
+<input type="hidden" id="userId" value="<%= userId %>">
+<input type="hidden" id="groupId" value="<%= groupId %>">
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+    })
+    $('.show-profile').on('click',function(){
+        const profileNav = $('.my-info');
+        if (profileNav.css("left","calc(100% + 150px)")) {
+          profileNav.css("left","calc(100% - 250px)");
+        }
+    })
+    $('.close-my-info').on('click',function(){
+      const profileNav = $('.my-info');
+      if (profileNav.css("left","calc(100% - 250px)")) {
+          profileNav.css("left","calc(100% + 150px)");
+        }
+    })
+    $('.open-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','-250px')) {
+        sideNav.css('left','0');
+      }
+    })
+     $('.close-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','0')) {
+        sideNav.css('left','-250px');
+      }
+    })
+
+  </script>
+
+
+
+</section>
+
+
+
+<!--<div class="videoContainer">
+<div class="vid_user">
+  <span class="text-info"><%userName %></span>
+</div>
+<div class="userVid">
+
+</div>
+</div>
+-->
+<style type="text/css">
+
+.videoContainer{
+  border-radius: 5px;
+  box-shadow: 5px 4px 10px grey;
+  width: 180px;
+  height:200px;
+  display: inline-flex;
+  margin: 5px 10px;;
+  flex-direction: column;
+}
+.userVid{
+  width: 100%;
+  height: 190px;
+
+}
+.userVid video{
+  width: 100%;
+  height: 100%;
+}
+	@keyframes fanimate{
+		0%{
+		top:5px;
+		}
+		100%{
+			top:8px;
+		}
+	}
+
+	@keyframes sanimate{
+		0%{
+			top:5px;
+		}
+		100%{
+			top: 9px;
+		}
+	}
+	@keyframes tanimate{
+		0%{
+			top:5px;
+		}
+		100%{
+			top: 10px;
+		}
+	}
+.container{
+	display: flex;
+	flex-direction: row;
+}
+.box:nth-child(1){
+	position: relative;
+	background: blue;
+	animation-duration: 1s;
+	animation-name: fanimate;
+	animation-delay: 1s;
+	transition-duration: 1s;
+	animation-iteration-count: infinite;
+	transition: ease-in-out;
+	
+}
+.box:nth-child(2){
+	position: relative;
+	background: blue;
+	animation-duration: 1s;
+	animation-delay: 2s;
+	animation-name: sanimate;
+	transition: .4s ease-in-out;
+	animation-iteration-count: infinite;
+	transition: ease-in-out;
+	
+}
+.box:nth-child(3){
+	position: relative;
+	background: blue;
+	animation-duration: 1s;
+	animation-delay: 3s;
+	animation-name: tanimate;
+	animation-iteration-count: infinite;
+	transition: ease-in-out;
+	
+}
+
+	.box{
+		background: red;
+		padding: 5px;
+		margin: 2px;
+		border-radius: 50%;
+
+	}
+
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+  $('.loginBtn').on('click',function(){
+    location.assign('/registrations/login');
+  })
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

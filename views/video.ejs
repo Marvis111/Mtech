@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="refrsh" content="3">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Keywords" content=" ">
+	<meta name="description" content="">
+	<!-- js links -->
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.js"></script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.js">
+	</script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  
+	<!--css links -->
+
+   <script type="text/javascript" src="js/video.js"></script>
+
+
+	<title>MTECH NG</title>
+</head>
+<body>
+
+ <div id="myvideo"></div>
+
+
+
+<style>
+    video{
+        width: 100%;
+        height: 100%;
+        z-index: 9999999999999;
+    }
+    #myvideo{
+        width: 500px;
+        height:500px;
+        margin: 10px auto;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px grey;
+      
+        }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        outputVid();
+
+    })
+
+    $('.show-profile').on('click',function(){
+        const profileNav = $('.my-info');
+        if (profileNav.css("left","calc(100% + 150px)")) {
+          profileNav.css("left","calc(100% - 250px)");
+        }
+    })
+    $('.close-my-info').on('click',function(){
+      const profileNav = $('.my-info');
+      if (profileNav.css("left","calc(100% - 250px)")) {
+          profileNav.css("left","calc(100% + 150px)");
+        }
+    })
+    $('.open-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','-250px')) {
+        sideNav.css('left','0');
+      }
+    })
+     $('.close-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','0')) {
+        sideNav.css('left','-250px');
+      }
+    })
+
+  </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+
+
+  
+  $('.loginBtn').on('click',function(){
+    location.assign('/registrations/login');
+  })
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

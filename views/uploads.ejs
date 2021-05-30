@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="sh" content="3">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Keywords" content=" ">
+	<meta name="description" content="">
+	<!-- js links -->
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.js"></script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.js">
+	</script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  
+	<!--css links -->
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<!-- bootstrap -->	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" type="text/css" href="css/chat.css">
+   <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+   <script type="text/javascript" src="js/video.js"></script>
+   <script type="text/javascript" src="js/"></script>
+
+
+	<title>MTECH NG</title>
+</head>
+<body>
+
+ 
+ <div class="chat-cord">
+   <div class="welcome">
+     <span class=""><i class="icon-smile"></i>ChatCod</span>
+   </div> 
+   <div class="chat-groups">
+    <form method="POST" enctype="multipart/form-data" action="/uploads">
+        <% if(flashMessages.errors){ %>
+            <div class="alert alert-danger alert-dismissible"
+            style="width: 90% !important; margin: 10px auto !important;">
+          <% flashMessages.errors.forEach((error)=>{ %>
+            <strong><%=  error.msg%>!</strong><br>
+          <% }) %>
+        </div>
+        <% } %>
+
+        <% if(flashMessages.success){ %>
+          <div class="alert alert-success alert-dismissible"
+           style="width: 90% !important; margin: 10px auto !important;">
+        <% flashMessages.success.forEach((success)=>{ %>
+          <strong><%=  success.msg %>!</strong><br>
+        <% }) %>
+      </div>
+      <% } %>
+
+        <div class="custom-file" style="margin-top: 40px;">
+          <input type="file" name="profileImg" class="custom-file-input" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        
+
+        <div class="group-btn">
+            <button type="submit" class="btn btn-primary mb-2">upload</button>
+        </div>
+      </form>
+
+  
+   </div>
+
+
+
+
+ </div>
+
+<!-- asynchronous...-->
+ <div class="chat-cord">
+  <div class="welcome">
+    <span class=""><i class="icon-smile"></i>Asynchronous </span>
+  </div> 
+  <div class="chat-groups">
+   <form method="POST" id="async_upIload" enctype="multipart/form-data" action="/uploads">
+     
+       <div class="custom-file" style="margin-top: 40px;">
+         <input type="file" name="profileImg" class="custom-file-input" id="customFile">
+         <label class="custom-file-label" for="customFile">Choose file</label>
+       </div>
+       
+       <div class="group-btn">
+           <input type="submit" class="btn btn-primary mb-2" value="upload">
+       </div>
+     </form>
+
+
+
+
+
+     <form method="POST" id="async_upload" enctype="multipart/form-data" action="/teacher">
+     
+      <div class="custom-file" style="margin-top: 40px;">
+    
+        <input type="text" id="nameMan">
+      </div>
+      
+      <div class="group-btn">
+          <input type="submit" class="btn btn-primary mb-2" value="upload">
+      </div>
+    </form>
+    
+    
+
+ 
+  </div>
+
+
+
+
+</div>
+
+
+<style>
+    #video{
+        width: 200px;
+        height:200px;
+        margin: 10px auto;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px grey;
+      
+        }
+</style>
+
+</body>
+<script type="text/javascript">
+  $(document).ready(function(){
+  
+  });
+/*
+$('#async_upload').on('submit',function(e){
+  e.preventDefault();
+//
+
+console.log(new FormData( this ))
+$.ajax({
+  url:'/ajaxUpload',
+  method:'POST',
+  processData:false,
+  contentType:false,
+  data: new FormData( this ),
+  success:function(data){
+    if(data.error){
+      data.error.forEach(err => {
+        console.log(err);
+      });
+    }
+  if(data.success){
+      data.success.forEach(success =>{
+        console.log(success);
+      })
+    }
+  }
+})
+
+})
+*/
+</script>
+<script type="text/javascript">
+    
+  $('#async_upload').on('submit',function(e){
+    e.preventDefault();
+  //
+  console.log(new FormData( this ))
+  $.ajax({
+    url:'/hello',
+    method:'POST',
+    data: {name:$('#nameMan').val()},
+    success:function(data){
+      if(data.error){
+        data.error.forEach(err => {
+          console.log(err);
+        });
+      }
+    if(data.success){
+        data.success.forEach(success =>{
+          console.log(success);
+        })
+      }
+    }
+  })
+  }
+  )
+  
+  
+    $(document).ready(function(){
+      var windowWidth = $(window).width();
+      if(windowWidth < 870){
+        $(".signupup").click(function(){
+          $(".container").css('height' , '150vh');
+        });
+        $(".signinin").click(function(){
+          $(".container").css('height' , '100vh');
+        });
+      }
+    });
+    
+  
+    $(window).on("resize", function(event){
+      var windowWidth = $(window).width();
+      if(windowWidth < 870){
+        $(".signupup").click(function(){
+          $(".container").css('height' , '150vh');
+        });
+        $(".signinin").click(function(){
+          $(".container").css('height' , '100vh');
+        });
+      }
+      if(windowWidth > 870){
+        $(".signupup").click(function(){
+          $(".container").css('height' , '100vh');
+        });
+        $(".signinin").click(function(){
+          $(".container").css('height' , '100vh');
+        });
+      }
+    });
+  </script>
+
+</html>
+
+
+
+</body>
+</html>

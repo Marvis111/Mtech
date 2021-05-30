@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="refrehsh" content="3">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Keywords" content=" ">
+	<meta name="description" content="">
+	<!-- js links -->
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.js"></script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.js">
+	</script>
+	<script type="text/javascript" src="assets/jquery/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  
+	<!--css links -->
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<!-- bootstrap -->	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" type="text/css" href="css/chat.css">
+   <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+   <script type="text/javascript" src="js/video.js"></script>
+   <script type="text/javascript" src="js/"></script>
+
+
+	<title>MTECH NG</title>
+</head>
+<body>
+
+ 
+ <div class="chat-cord">
+   <div class="welcome">
+     <span class=""><i class="icon-smile"></i>ChatCod</span>
+   </div> 
+   <div class="chat-groups">
+    <div class="user">
+      <span class="">Welcome, <i style="color: blue"><%= user.username %></i> join our group chat to discuss Tech Issues that matters</span>
+    </div>
+    <div class="selectGroup">
+      <span class="text-info">Select Group</span>
+      <select class="groups">
+       <% if(user.groups){ %>
+        <% user.groups.forEach((group)=>{ %>
+            <option value="<%= group._id %>" ><%= group.name %></option>
+    <%    }) %>
+    <%   } %>
+        
+      </select>
+
+    </div>
+    <div class="group-btn">
+    <button type="button" class="btn btn-primary btn-md join-group" style="margin: 10px auto !important">Join Group</button>   
+  </div>
+  <div class="group-btn">
+    <button type="button" class="btn btn-primary btn-md" style="margin: 10px auto !important">
+      <a href='/profileimg'>Set Image</a></button>
+  </div>
+   </div>
+
+ </div>
+ 
+<style>
+    #video{
+        width: 200px;
+        height:200px;
+        margin: 10px auto;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px grey;
+      
+        }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    
+    })
+
+
+    $('.show-profile').on('click',function(){
+        const profileNav = $('.my-info');
+        if (profileNav.css("left","calc(100% + 150px)")) {
+          profileNav.css("left","calc(100% - 250px)");
+        }
+    })
+    $('.close-my-info').on('click',function(){
+      const profileNav = $('.my-info');
+      if (profileNav.css("left","calc(100% - 250px)")) {
+          profileNav.css("left","calc(100% + 150px)");
+        }
+    })
+    $('.open-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','-250px')) {
+        sideNav.css('left','0');
+      }
+    })
+     $('.close-side-nav').on('click',function(){
+      const sideNav = $('.side-nav');
+      if (sideNav.css('left','0')) {
+        sideNav.css('left','-250px');
+      }
+    })
+
+  </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+
+  $(document).on('click','.join-group',function(){
+      userId = '<%= user.userId %>';
+      groupId = $('select').val();
+      
+      $.ajax({
+          url:"/chatzone",
+          method:"POST",
+          data:{userId,groupId},
+          success:function(data){
+             window.location.assign(`/chat/${data}`);
+          }
+      })
+
+  })
+
+
+
+  $('.loginBtn').on('click',function(){
+    location.assign('/registrations/login');
+  })
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>
